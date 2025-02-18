@@ -29,17 +29,12 @@ type Configs_data struct {
 	Smtp_configs Smtpconfig_data
 }
 
-func Loadconfig() {
-	files := []string{"/home/yuka/ZekstaAssigments/Assignment6/UserAuthWithArch/config/DBconfig.env", "/home/yuka/ZekstaAssigments/Assignment6/UserAuthWithArch/config/OrgConfig.env"}
-	for _, file := range files {
-		err := godotenv.Load(file)
-		if err != nil {
-			panic("config file not found!")
-		}
+func Loadconfig(Config_path string) Configs_data {
 
+	err := godotenv.Load(Config_path)
+	if err != nil {
+		panic("config file not found!")
 	}
-}
-func Configs() Configs_data {
 	Configs_data := Configs_data{DB_configs: Dbconfig_data{
 		DB_Host: os.Getenv("DB_HOST"),
 		DB_Port: os.Getenv("DB_PORT"),
